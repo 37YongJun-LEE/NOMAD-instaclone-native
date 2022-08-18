@@ -1,7 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { Image } from "react-native";
+import Comments from "../screens/Comments";
 import Feed from "../screens/Feed";
+import Likes from "../screens/Likes";
 import Me from "../screens/Me";
 import Notifications from "../screens/Notifications";
 import Photo from "../screens/Photo";
@@ -55,6 +57,8 @@ export default function SharedStackNav({ screenName }) {
             ) : null }  
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Photo" component={Photo} />
+            <Stack.Screen name="Likes" component={Likes} />
+            <Stack.Screen name="Comments" component={Comments} />
         </Stack.Navigator>
           // Stack 스크린이름이랑 Tab스크린 이름이 똑같이겹치면,
         // 프로그램이 헷갈릴수 있다는 경고가 뜨긴하지만 , 큰 문제 없으니 넘어간다.
