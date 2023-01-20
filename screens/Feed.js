@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView, ActivityIndicator, FlatList } from "react-native";
 import { gql } from "@apollo/client/core";
 import { COMMENT_FRAGMENT, PHOTO_FRAGMENT } from "../fragments";
 import { useQuery } from "@apollo/client/react/hooks";
 import ScreenLayout from "../components/ScreenLayout";
 import Photo from "../components/Photo";
+import { TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { CommonActions } from "@react-navigation/native";
 
 const FEED_QUERY = gql`
   query seeFeed($offset: Int!) {
@@ -27,7 +30,7 @@ const FEED_QUERY = gql`
   ${COMMENT_FRAGMENT}
 `;
 
-export default function Feed() {
+export default function Feed({ navigation }) {
     const { data, loading, refetch, fetchMore } = useQuery(FEED_QUERY, {
       variables: {
         offset: 0,
@@ -42,8 +45,25 @@ export default function Feed() {
       setRefreshing(true);
       await refetch();
       setRefreshing(false);
-    }
+    };
     const [refreshing, setRefreshing] = useState(false);
+    
+    const MessagesButton = () => (
+      /* <TouchableOpacity style={{ marginRight: 10 }} onPress={ () => navigation.dispatch( CommonActions.navigate("Messages")) }> */
+      <TouchableOpacity style={{ marginRight: 10 }} onPress={ () => navigation.navigate("Messages") }>
+        <Ionicons 
+          name="paper-plane-outline" 
+          color="white"
+          size={24}
+        />
+      </TouchableOpacity>
+    )
+    useEffect(()=> {
+      navigation.setOptions({
+        headerRight: MessagesButton,
+      });
+    }, []);
+
     return (
      <ScreenLayout loading={loading}>
       <FlatList 

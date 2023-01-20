@@ -9,13 +9,11 @@ import { gql } from "@apollo/client/core";
 import { useMutation } from "@apollo/client";
 import { FEED_PHOTO } from "../fragments";
 
-
 const UPLOAD_PHOTO_MUTATION = gql`
+    scalar Upload
+
     mutation uploadPhoto($file: Upload!, $caption: String) {
-        uploadPhoto(
-            file: $file
-            caption: $caption
-        ) {
+        uploadPhoto(file: $file, caption: $caption) {
             ...FeedPhoto
         }
     }
@@ -30,7 +28,7 @@ const Container = styled.View`
 const Photo = styled.Image`
     height: 400px;
 `;
-const CatpionContainer = styled.View`
+const CaptionContainer = styled.View`
     margin-top: 30px; 
 `;
 const Caption = styled.TextInput`
@@ -48,12 +46,12 @@ const HeaderRightText = styled.Text`
 `;
 
 export default function UploadForm({ route, navigation }) {
-    const [uploadPhotoMutation, { loading }] = useMutation(UPLOAD_PHOTO_MUTATION);
+    const [uploadPhotoMutation, { loading, error }] = useMutation(UPLOAD_PHOTO_MUTATION);
     const HeaderRight = () => (
         <TouchableOpacity 
             onPress={handleSubmit(onValid)}
         >
-            <HeaderRightText>Next</HeaderRightText>
+            <HeaderRightText>done</HeaderRightText>
         </TouchableOpacity>
     );
 
@@ -64,29 +62,34 @@ export default function UploadForm({ route, navigation }) {
             style={{ marginRight: 10 }}
         />
     );
+
     const { register, handleSubmit, setValue } = useForm();
     useEffect( () => {
         register("caption");
     }, [register]);
+
     useEffect( () => {
         navigation.setOptions({
             headerRight: loading ? HeaderRightLoading : HeaderRight,
             ...(loading && { headerLeft: () => null }),
         });
     }, [loading]);
+    
     const onValid = ({ caption }) => {
         const file = new ReactNativeFile({
             uri: route.params.file,
             name:`1.jpg`,
             type: "image/jpeg",
-        })
+        });
+        console.log(file);
         uploadPhotoMutation({
             variables: {
                 caption,
                 file,
             }
-        })
+        });
     };
+    console.log(error);
 
     return (
         <DismissKeyboard>
@@ -95,7 +98,7 @@ export default function UploadForm({ route, navigation }) {
                 resizeMode="contain"
                 source={{uri: route.params.file}} 
             />
-            <CatpionContainer>
+            <CaptionContainer>
                 <Caption 
                     returnKeyType="done"
                     placeholder="Write a caption"
@@ -103,7 +106,7 @@ export default function UploadForm({ route, navigation }) {
                     onSubmitEditing={handleSubmit(onValid)}
                     onChangeText={(text) => setValue("caption", text)}
                 />
-            </CatpionContainer>
+            </CaptionContainer>
         </Container>
         </DismissKeyboard>
     );

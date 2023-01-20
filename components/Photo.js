@@ -97,12 +97,14 @@ function Photo({ id, user, caption, file, isLiked, likes }) {
         },
         update: updateToggleLike,
       });
+
     const goToProfile = () => {
       navigation.navigate("Profile", {
         username: user.username,
         id: user.id,
       });
     };
+    
     return (
         <Container>
             <Header onPress={goToProfile}>
@@ -129,7 +131,13 @@ function Photo({ id, user, caption, file, isLiked, likes }) {
                             size={25}
                         />
                     </Action>
-                    <Action onPress={ () => navigation.navigate("Comments")}>
+                    <Action 
+                      onPress={ () => 
+                        navigation.navigate("Comments", {
+                          photoId: id,
+                        })
+                      }
+                    >
                         <Ionicons name="chatbubble-outline" color="white" size={22}/>
                     </Action>
                 </Actions>

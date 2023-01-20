@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { View, Text, TouchableOpacity, ActivityIndicator, useWindowDimensions, FlatList, Image } from "react-native";
-import { TextInput } from "react-native";
 import styled from "styled-components/native";
 import DismissKeyboard from "../components/DismissKeyboard";
 import { useForm } from "react-hook-form";

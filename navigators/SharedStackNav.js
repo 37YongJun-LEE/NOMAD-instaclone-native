@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { Image } from "react-native";
+import { TouchableOpacity } from "react-native";
 import Comments from "../screens/Comments";
 import Feed from "../screens/Feed";
 import Likes from "../screens/Likes";
@@ -9,6 +10,7 @@ import Notifications from "../screens/Notifications";
 import Photo from "../screens/Photo";
 import Profile from "../screens/Profile"
 import Search from "../screens/Search";
+import { Ionicons } from "@expo/vector-icons";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,13 +38,23 @@ export default function SharedStackNav({ screenName }) {
                         headerTitle: () => (
                             <Image 
                                 style={{
-                                    maxWidth: 380,
-                                    maxHeight: 80,
+                                    width: 120,
+                                    height: 60,
                                 }}
-                                resizeMode="center"
+                                resizeMode="contain"
                                 source={require("../assets/hotdog.jpg")} 
                             />
                         ),
+
+                        // headerRight: () => (
+                        //     <TouchableOpacity>
+                        //         <Ionicons 
+                        //             name="paper-plane" 
+                        //             color="white"
+                        //             size={30}
+                        //         />
+                        //     </TouchableOpacity>
+                        // ),
                     }} 
                 />
             ) : null }

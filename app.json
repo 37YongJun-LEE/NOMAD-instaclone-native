@@ -20,12 +20,18 @@
     "ios": {
       "supportsTablet": true
     },
+
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.googleMaps.googleMaps",
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyB_JoQW044ps_-fgRAicl2Sv_ASp8-IUgE" }     
       }
-    },
+    },  
+    
     "web": {
       "favicon": "./assets/favicon.png"
     }

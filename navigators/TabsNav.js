@@ -11,19 +11,21 @@ export default function TabsNav() {
     const {data} = useMe();
     return (
         <Tabs.Navigator 
-            tabBarOptions={{
-                activeTintColor: "white",
-                showLabel: false,
-                style: {
-                    borderTopColor: "rgba(255, 255, 255, 0.3)",
-                    backgroundColor: "black",
-                },
-                // tabstyle: { backgroundColor: "red", marginRight: 10,}
-                // 위 예시처럼 원하는 스타일 변경이 가능하다. 
-            }}
+            screenOptions={{
+                "tabBarActiveTintColor": "white",
+                "tabBarShowLabel": false,
+                "tabBarStyle": [
+                  {
+                    "display": "flex",
+                    "backgroundColor": "black",
+                  },
+                  null
+                ]
+              }}  // 위 예시처럼 원하는 스타일 변경이 가능하다.            
         >
              <Tabs.Screen name="Feed"
                 options={{
+                    headerShown: false,
                     tabBarIcon: ({focused, color, size}) => (
                         <TabIcon iconName={"home"} color={color} focused={focused} />
                     ),
@@ -34,6 +36,7 @@ export default function TabsNav() {
 
             <Tabs.Screen name="Search" 
                 options={{
+                    headerShown: false,
                     tabBarIcon: ({focused, color, size}) => (
                         <TabIcon iconName={"search"} color={color} focused={focused} />
                     ),
@@ -54,6 +57,7 @@ export default function TabsNav() {
                     };
                 }} 
                 options={{
+                    headerShown: false,
                     tabBarIcon: ({focused, color, size}) => (
                         <TabIcon iconName={"camera"} color={color} focused={focused} />
                     ),
@@ -62,6 +66,7 @@ export default function TabsNav() {
     
             <Tabs.Screen name="Notifications" 
                 options={{
+                    headerShown: false,
                     tabBarIcon: ({focused, color, size}) => (
                         <TabIcon iconName={"heart"} color={color} focused={focused} />
                     ),
@@ -73,6 +78,7 @@ export default function TabsNav() {
             <Tabs.Screen 
                 name="Profile"
                 options={{
+                    headerShown: false,
                     tabBarIcon: ({focused, color, size}) => 
                        data?.me?.avatar ? (
                        <Image 

@@ -24,6 +24,10 @@ export default function Likes({ route }) {
         },
         skip: !route?.params?.photoId,
     });
+
+    //console.log(route);
+    //console.log(data);
+
     const renderUser = ({item:user}) => (
         <UserRow {...user} />
     );
